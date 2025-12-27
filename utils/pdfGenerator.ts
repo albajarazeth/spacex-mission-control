@@ -1,4 +1,5 @@
 import { DashboardMetrics } from '@/types';
+import type { jsPDF } from 'jspdf';
 
 interface PdfExportOptions {
   metrics: DashboardMetrics | null;
@@ -10,6 +11,8 @@ interface PdfExportOptions {
   };
 }
 
+type JsPDFConstructor = new (orientation?: 'p' | 'portrait' | 'l' | 'landscape', unit?: string, format?: string | number[]) => jsPDF;
+
 export const generateAnalyticsPdf = async ({
   metrics,
   filters,
@@ -18,11 +21,11 @@ export const generateAnalyticsPdf = async ({
     throw new Error('PDF generation requires browser environment');
   }
 
-  let jsPDF: any;
+  let JsPDF: JsPDFConstructor;
 
   try {
     const jsPDFModule = await import('jspdf');
-    jsPDF = jsPDFModule.jsPDF || (jsPDFModule.default && jsPDFModule.default.jsPDF) || jsPDFModule.default || jsPDFModule;
+    JsPDF = (jsPDFModule.default || jsPDFModule) as JsPDFConstructor;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     throw new Error(
@@ -30,11 +33,11 @@ export const generateAnalyticsPdf = async ({
     );
   }
 
-  if (!jsPDF) {
+  if (!JsPDF) {
     throw new Error('PDF library not properly loaded. Please ensure jspdf is installed.');
   }
 
-  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pdf = new JsPDF('p', 'mm', 'a4');
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
   const margin = 20;

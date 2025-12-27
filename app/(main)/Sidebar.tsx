@@ -117,11 +117,11 @@ const Sidebar = ({ theme, isOpen, onToggle }: SidebarProps) => {
                   ease: [0.4, 0, 0.2, 1],
                 }}
               >
-                <motion.div whileHover={{ x: 4 }} whileTap={{ scale: 0.95 }}>
+                <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     href={item.href}
                     onClick={() => onToggle()}
-                    className="flex items-center gap-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer p-3"
+                    className="flex items-center gap-3 rounded-lg hover:bg-[#A78BFA]/25 dark:hover:bg-[#8B5CF6]/35 transition-colors cursor-pointer p-3"
                   >
                     <Icon className="text-gray-600 dark:text-gray-300 flex-shrink-0 text-xl" />
                     <span className="text-gray-700 dark:text-gray-300 whitespace-nowrap">
@@ -206,11 +206,11 @@ const Sidebar = ({ theme, isOpen, onToggle }: SidebarProps) => {
                   ease: [0.4, 0, 0.2, 1],
                 }}
               >
-                <motion.div whileHover={{ x: 4 }} whileTap={{ scale: 0.95 }}>
+                <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     href={item.href}
                     onClick={() => isOpen && onToggle()}
-                    className={`flex items-center gap-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
+                    className={`flex items-center gap-3 rounded-lg hover:bg-[#A78BFA]/25 dark:hover:bg-[#8B5CF6]/35 transition-colors cursor-pointer ${
                       !isOpen
                         ? "justify-center p-2 w-full"
                         : "p-3"

@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
+@variant dark (&:is(.dark, [data-theme="dark"]));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --light-bg: linear-gradient(135deg, #FAF9F7 0%, #F2EEFF 100%);
+  --dark-bg: linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-instrument-sans);
+  --font-inter: var(--font-inter-tight);
 }
 
 body {
-  background: var(--background);
+  background: var(--light-bg);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Google Sans', var(--font-instrument-sans), var(--font-inter-tight), system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+html.dark body {
+  background: var(--dark-bg);
+}
+
+html:not(.theme-ready) body > * {
+  opacity: 0;
+}
+
+html.theme-ready body > * {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .dashboard-content {
+    padding: 1rem;
+    gap: 1rem;
+    margin-left: 0;
+  }
+
+  .dashboard-timeline {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .analytics-container {
+    width: 100%;
+    padding-top: 1rem;
+  }
+
+  .top-stats {
+    gap: 1rem;
+  }
+
+  .dashboard-chart {
+    min-width: 0;
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .dashboard-content {
+    flex-direction: column;
+    align-items: stretch;
+    margin-left: 5rem;
+  }
+
+  .dashboard-timeline {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .analytics-container {
+    width: 100%;
+  }
+
+  .top-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .dashboard-content {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-left: 5rem;
+  }
+
+  .dashboard-timeline {
+    width: 20rem;
+    flex-shrink: 0;
+  }
+
+  .analytics-container {
+    flex: 1;
+    max-width: 56rem;
+  }
+}
+
+.timeline-container {
+  position: relative;
+}
+
+.timeline-line {
+  left: 1.5rem;
+  transform: translateX(-50%);
+}
+
+.rocket-icon-container {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  margin-left: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
 }
